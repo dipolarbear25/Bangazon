@@ -87,6 +87,7 @@ public class BangazonDbContext : DbContext
         {
             new OrderProduct 
             { 
+                ID = 1,
                 OrderId = 1,
                 ProductId = 1
             }
