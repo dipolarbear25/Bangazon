@@ -1,14 +1,15 @@
+using System;
 namespace Bangazon.Models
 {
-    public class Products
+    public class Product
     {
-        public int Id { get; set; }
-        public int sellerId { get; set; }
-        public string productName { get; set; }
-        public string category { get; set; }
-        public string quantity { get; set; }
-        public string description { get; set; }
-        public decimal pricePerUnit { get; set; }
-        public DateTime timePosted { get; set; }
+        public int ID { get; set; }
+        public int SellerId { get; set; }
+        public string ProductName { get; set; }
+        public int CategoryId { get; set; }
+        public int QuantityInStock { get; set; }
+        public string Description { get; set; }
+        public decimal PricePerUnit { get; set; }
+        public DateTime TimePosted { get; set; }
     }
 }

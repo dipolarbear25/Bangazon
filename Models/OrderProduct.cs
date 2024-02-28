@@ -1,9 +1,9 @@
 using System;
 namespace Bangazon.Models
 {
-    public class OrderProducts
+    public class OrderProduct
     {
-        public int orderId { get; set; }
-        public string productId { get; set; }
+        public int OrderId { get; set; }
+        public int ProductId { get; set; }
     }
 }
