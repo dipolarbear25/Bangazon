@@ -2,6 +2,7 @@ using Bangazon.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http.Json;
+using System.Runtime.CompilerServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,18 +47,31 @@ app.MapGet("/api/users/{id}", (BangazonDbContext db, int id) =>
     {
         return Results.NotFound("User Not Found.");
     }
-
     return Results.Ok(uID);
 });
 
-app.MapGet("/api/products", (BangazonDbContext db) =>
+app.MapPost("/api/users", (BangazonDbContext db, User users) =>
 {
-    return db.Products.ToList();
+    db.Users.Add(users);
+    db.SaveChanges();
+    return Results.Created($"/api/campsites/{users.ID}", users);
 });
 
-app.MapGet("/api/orders", (BangazonDbContext db) =>
+app.MapPut("/api/users/{id}", (BangazonDbContext db, int id, User updateUser) =>
 {
-    return db.Orders.ToList();
+    User userToUpdate = db.Users.SingleOrDefault(user => user.ID == id);
+
+    if (userToUpdate == null)
+    {
+        return Results.NotFound();
+    }
+
+    userToUpdate.Email = updateUser.Email;
+    userToUpdate.Name = updateUser.Name;
+    userToUpdate.IsSeller = updateUser.IsSeller;
+
+    db.SaveChanges();
+    return Results.NoContent();
 });
 
 app.Run();
