@@ -8,5 +8,6 @@ namespace Bangazon.Models
 		public bool OrderIsOpen { get; set; }
 		public DateTime OrderDate { get; set; }
 		public int PaymentType { get; set; }
-	}
+        public ICollection<Product> Products { get; set; }
+    }
 }

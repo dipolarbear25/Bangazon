@@ -33,4 +33,31 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapGet("/api/users", (BangazonDbContext db) =>
+{
+    return db.Users.ToList();
+});
+
+app.MapGet("/api/users/{id}", (BangazonDbContext db, int id) =>
+{
+    var uID = db.Users.FirstOrDefault(u => u.ID == id);
+
+    if (uID == null)
+    {
+        return Results.NotFound("User Not Found.");
+    }
+
+    return Results.Ok(uID);
+});
+
+app.MapGet("/api/products", (BangazonDbContext db) =>
+{
+    return db.Products.ToList();
+});
+
+app.MapGet("/api/orders", (BangazonDbContext db) =>
+{
+    return db.Orders.ToList();
+});
+
 app.Run();

@@ -19,12 +19,12 @@ public class BangazonDbContext : DbContext
     {
         modelBuilder.Entity<Category>().HasData(new Category[]
         {
-            new Category
+            new()
             {
                 ID = 1,
                 Name = "Home Decore"
             },
-            new Category
+            new()
             {
                 ID = 2,
                 Name = "Sport Goods"
@@ -33,19 +33,27 @@ public class BangazonDbContext : DbContext
 
         modelBuilder.Entity<Order>().HasData(new Order[]
         {
-            new Order
+            new()
             {
                 ID = 1,
                 UserId = 1,
                 OrderIsOpen = false,
                 OrderDate = new DateTime(2024, 1, 6),
                 PaymentType = 1
+            },
+            new()
+            {
+                ID = 2,
+                UserId = 2,
+                OrderIsOpen = true,
+                OrderDate = new DateTime(2024, 1, 24),
+                PaymentType = 2
             }
         });
 
         modelBuilder.Entity<Product>().HasData(new Product[]
         {
-            new Product
+            new()
             {
                 ID = 1,
                 SellerId = 1,
@@ -55,28 +63,53 @@ public class BangazonDbContext : DbContext
                 Description = "This item is a lamp that has no buttons to turn on, but the bottom rim of the lamp shade has a movement sensor to detect when someone or something walks by, thus turning it on.",
                 PricePerUnit = 25.00M,
                 TimePosted = new DateTime(2024, 2, 16)
+            },
+            new()
+            {
+                ID = 2,
+                SellerId = 2,
+                ProductName = "Aluminum bat",
+                CategoryId = 2,
+                QuantityInStock = 5,
+                Description = "A baseball bat made out of aluminum.",
+                PricePerUnit = 40.00M,
+                TimePosted = new DateTime(2024, 2, 4)
             }
         });
 
         modelBuilder.Entity<User>().HasData(new User[]
         {
-            new User
+            new() 
             {
                 ID = 1,
                 Email = "Jjonna@dailybugle.com",
                 Name = "John Jonah Jameson Jr",
+                IsSeller = true
+            },
+            new()
+            {
+                ID = 2,
+                Email = "AuntieMayLovesBen@gmail.com",
+                Name = "Maybelle Parker-Jameson",
+                IsSeller = false
+            },
+            new() 
+            {
+                ID = 3,
+                Email = "PeterParker@ESU.com",
+                Name = "Peter Parker",
                 IsSeller = true
             }
         });
 
         modelBuilder.Entity<PaymentType>().HasData(new PaymentType[]
         {
-            new PaymentType
+            new()
             {
                 ID = 1,
                 Name = "Debit"
             },
-            new PaymentType
+            new()
             { 
                 ID = 2,
                 Name = "Credit"
@@ -85,11 +118,17 @@ public class BangazonDbContext : DbContext
 
         modelBuilder.Entity<OrderProduct>().HasData(new OrderProduct[]
         {
-            new OrderProduct 
+            new()
             { 
                 ID = 1,
                 OrderId = 1,
                 ProductId = 1
+            },
+            new()
+            {
+                ID = 2,
+                OrderId = 2,
+                ProductId = 2
             }
         });
     }
