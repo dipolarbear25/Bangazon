@@ -97,7 +97,7 @@ app.MapGet("/api/products/seller", (BangazonDbContext db, int sellerID) =>
 
     if (prodSeller == null)
     {
-        return Results.NotFound("No products found by seller.");
+        return Results.NotFound("No products found by this seller.");
     }
     return Results.Ok(prodSeller);
 });
@@ -218,16 +218,16 @@ app.MapGet("/api/orderProducts", (BangazonDbContext db) =>
     .ToList();
 });
 
-app.MapGet("/api/products/{id}", (BangazonDbContext db, int id) =>
+app.MapPost("/api/orderProducts", (BangazonDbContext db, OrderProduct newProductInOrder) =>
 {
-    var prodBought = db.OrderProducts.FirstOrDefault(c => c.ProductId == id);
+    db.OrderProducts.Add(newProductInOrder);
+    db.SaveChanges();
+    return Results.Created($"/api/orderProducts/{newProductInOrder.ID}", newProductInOrder);
+});
 
-    if (prodBought == null)
-    {
-        return Results.NotFound("Order wasn't found.");
-    }
-
-    return Results.Ok(prodBought);
+app.MapGet("/paymentTypes", (BangazonDbContext db, int id) =>
+{
+    return db.PaymentTypes.ToList();
 });
 
 app.Run();
